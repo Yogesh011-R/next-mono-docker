@@ -1,0 +1,29 @@
+FROM oven/bun:1 AS base
+
+WORKDIR /usr/src/app
+
+COPY ../../ .
+
+
+COPY long-running-script.sh /usr/local/bin/long-running-script.sh
+RUN chmod +x /usr/local/bin/long-running-script.sh
+
+# Set an entrypoint to run the script when the container starts
+CMD ["/usr/local/bin/long-running-script.sh"]
+
+
+
+
+# COPY /packages ./packages
+# COPY ./bun.lock ./
+
+# COPY ./package.json ./
+# COPY ./turbo.json ./
+
+# COPY ./apps/backend ./apps/backend
+
+
+# RUN bun install --production
+
+# CMD ["bun", "run", "src/index.ts"]
+

@@ -1,0 +1,13 @@
+.git
+node_modules
+**/node_modules
+**/.next
+**/.turbo
+**/.cache
+**/out
+**/dist
+**/dist.env*
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
