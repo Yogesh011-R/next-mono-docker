@@ -24,3 +24,15 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:${{ github.sha }}
+      # Deploy to an VM
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:${{ github.sha }}
+            docker stop next_mono_backend
+            docker rm next_mono_backend
+            docker run -d -e DATABASE_URL=${{ secrets.DATABASE_URL }} --name next_mono_backend -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:${{ github.sha }}
