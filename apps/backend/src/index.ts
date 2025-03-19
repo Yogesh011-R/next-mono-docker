@@ -15,6 +15,21 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.get('/user/:id', async (req, res) => {
+  try {
+    const users = await client.user.findUnique({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+
+
+    res.json(users);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/user', (req, res) => {
   const { name, password } = req.body;
 
