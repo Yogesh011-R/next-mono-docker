@@ -2,6 +2,9 @@ name: Deploy the Webapp
 on:
   push:
     branches: [main]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +18,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
@@ -24,6 +30,8 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_web:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       # Deploy to an VM
       - name: Deploy to VM
         uses: appleboy/ssh-action@master
