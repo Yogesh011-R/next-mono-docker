@@ -19,8 +19,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./docker/Dockerfile.backend
+          file: ./docker/Dockerfile.web
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_web:${{ github.sha }}

@@ -1,19 +1,25 @@
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: /docker/Dockerfile.backend
-    ports:
-      - 8000:8000
-  websocket:
-    build:
-      context: .
-      dockerfile: /docker/Dockerfile.websocket
-    ports:
-      - 8081:8081
+  # backend:
+  #   build:
+  #     context: .
+  #     dockerfile: /docker/Dockerfile.backend
+  #   ports:
+  #     - 8000:8000
+  #   environment:
+  #     - DATABASE_URL="postgresql://mono_owner:npg_y1ZGWwPnzm0K@ep-young-sound-a1ne9h8e-pooler.ap-southeast-1.aws.neon.tech/mono?sslmode=require"
+  # websocket:
+  #   build:
+  #     context: .
+  #     dockerfile: /docker/Dockerfile.websocket
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     - DATABASE_URL="postgresql://mono_owner:npg_y1ZGWwPnzm0K@ep-young-sound-a1ne9h8e-pooler.ap-southeast-1.aws.neon.tech/mono?sslmode=require"
   web:
     build:
       context: .
       dockerfile: /docker/Dockerfile.web
+      args:
+        - DATABASE_URL=postgresql://mono_owner:npg_y1ZGWwPnzm0K@ep-young-sound-a1ne9h8e-pooler.ap-southeast-1.aws.neon.tech/mono?sslmode=require
     ports:
       - 3000:3000

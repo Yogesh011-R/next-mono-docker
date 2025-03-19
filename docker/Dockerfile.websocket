@@ -1,4 +1,6 @@
 FROM oven/bun:alpine AS base
+ARG DATABASE_URL
+
 
 WORKDIR /usr/src/app
 
@@ -9,6 +11,9 @@ COPY ./package.json ./
 COPY ./turbo.json ./
 
 COPY ./apps/websocket ./apps/websocket
+
+RUN echo "DATABASE_URL=\"${DATABASE_URL}\"" > ./packages/database/.env
+
 
 
 RUN bun install
