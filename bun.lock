@@ -20,6 +20,9 @@
         "@repo/typescript-config": "*",
         "@types/express": "^5.0.0",
       },
+      "peerDependencies": {
+        "typescript": "^5.0.0",
+      },
     },
     "apps/web": {
       "name": "web",
