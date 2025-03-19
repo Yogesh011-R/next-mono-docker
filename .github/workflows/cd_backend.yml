@@ -21,4 +21,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile.backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/next_mono_backend:${{ github.sha }}
