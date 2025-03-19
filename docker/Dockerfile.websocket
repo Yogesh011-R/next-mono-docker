@@ -1,2 +1,36 @@
-FROM oven/bun:1 AS base
+FROM oven/bun:alpine AS base
+
 WORKDIR /usr/src/app
+
+COPY /packages ./packages
+COPY ./bun.lock ./
+
+COPY ./package.json ./
+COPY ./turbo.json ./
+
+COPY ./apps/websocket ./apps/websocket
+
+
+RUN bun install --frozen-lockfile
+
+RUN bun run generate:db
+RUN bun run build:websocket
+
+CMD ["bun","run","start:websocket"]
+
+
+
+# FROM base AS runner
+
+# WORKDIR /app
+
+# COPY --from=base /app/apps/websocket/dist .
+
+# EXPOSE 8001
+
+
+# CMD bun index.js
+
+
+
+

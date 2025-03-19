@@ -3,7 +3,9 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun esbuild src/index.ts --bundle --platform=node --outdir=dist",
+    "start": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

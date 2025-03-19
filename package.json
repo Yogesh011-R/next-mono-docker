@@ -2,14 +2,17 @@
   "name": "next_mono_bun",
   "private": true,
   "scripts": {
-    "predev": "",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "generate:db": "cd packages/database && bunx prisma generate",
-    "start:backend": "cd apps/backend && bun run index.ts"
+    "build:web": "cd apps/web && bun run build",
+    "build:backend": "cd apps/backend && bun run build",
+    "build:websocket": "cd apps/websocket && bun run build",
+    "start:backend": "cd apps/backend/src && bun index.js",
+    "start:websocket": "cd apps/websocket/src && bun index.js"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

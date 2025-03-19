@@ -1,5 +1,7 @@
 import { client } from '@repo/db';
 
+export const dynamic = 'force-dynamic';
+
 const Page = async () => {
   const data = await client.user.findMany();
   return (
@@ -11,7 +13,7 @@ const Page = async () => {
       }}
     >
       {data.map(data => (
-        <h1>{data.name}</h1>
+        <h1 key={data.id}>{data.name}</h1>
       ))}
     </div>
   );

@@ -1,9 +1,19 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: /docker/Dockerfile.backend
     ports:
       - 8000:8000
+  websocket:
+    build:
+      context: .
+      dockerfile: /docker/Dockerfile.websocket
+    ports:
+      - 8081:8081
+  web:
+    build:
+      context: .
+      dockerfile: /docker/Dockerfile.web
+    ports:
+      - 3000:3000

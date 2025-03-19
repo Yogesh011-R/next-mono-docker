@@ -1,29 +1,38 @@
-FROM oven/bun:1 AS base
+FROM oven/bun:alpine AS base
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY ../../ .
+COPY /packages ./packages
+COPY ./bun.lock ./
 
+COPY ./package.json ./
+COPY ./turbo.json ./
 
-COPY long-running-script.sh /usr/local/bin/long-running-script.sh
-RUN chmod +x /usr/local/bin/long-running-script.sh
-
-# Set an entrypoint to run the script when the container starts
-CMD ["/usr/local/bin/long-running-script.sh"]
-
+COPY ./apps/backend ./apps/backend
 
 
+RUN bun install --frozen-lockfile
+RUN bun run generate:db
 
-# COPY /packages ./packages
-# COPY ./bun.lock ./
-
-# COPY ./package.json ./
-# COPY ./turbo.json ./
-
-# COPY ./apps/backend ./apps/backend
+CMD ["bun","run","start:backend"]
 
 
-# RUN bun install --production
 
-# CMD ["bun", "run", "src/index.ts"]
+
+
+# FROM base AS runner
+
+# WORKDIR /app
+
+# COPY --from=base /app/apps/backend/dist .
+
+# EXPOSE 8000
+
+# CMD bun index.js
+
+
+
+
+
+
 
